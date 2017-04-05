@@ -28,4 +28,60 @@ public class Tag {
     return posts;
   }
 
+  public void save(){
+    try(Connection con = DB.sql2o.open()){
+      String sql = "INSERT INTO tags (name) VALUES (:name);";
+      this.id = (int) con.createQuery(sql, true)
+        .addParameter("name", name)
+        .executeUpdate()
+        .getKey();
+    }
+  }
+
+  public static List<Tag> all(){
+    try (Connection con = DB.sql2o.open()) {
+      String sql = "SELECT * FROM tags;";
+      return con.createQuery(sql)
+        .executeAndFetch(Tag.class);
+    }
+  }
+
+  public static Tag find(int id){
+    try (Connection con = DB.sql2o.open()) {
+      String sql = "SELECT * FROM tags WHERE id=:id;";
+      return con.createQuery(sql)
+        .addParameter("id", id)
+        .executeAndFetchFirst(Tag.class);
+    }
+  }
+
+  public void update(String column, String value){
+    try (Connection con = DB.sql2o.open()){
+      String sql = String.format("UPDATE tags SET %s = %s WHERE id=:id;", column, value);
+      con.createQuery(sql)
+        .addParameter("id", this.id)
+        .executeUpdate();
+    }
+  }
+
+  public void delete(){
+    try (Connection con = DB.sql2o.open()){
+      String sql = "DELETE FROM tags WHERE id=:id;";
+      con.createQuery(sql)
+        .addParameter("id", this.id)
+        .executeUpdate();
+    }
+  }
+
+  @Override
+  public boolean equals(Object otherObject){
+    if (!(otherObject instanceof Tag)) {
+      return false;
+    } else {
+      Tag newTag = (Tag) otherObject;
+      return this.getName().equals(newTag.getName());
+    }
+  }
+
+
 }

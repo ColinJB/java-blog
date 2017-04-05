@@ -42,4 +42,20 @@ public class UserTest {
     assertEquals(User.all().get(0).getName(), "Alex");
   }
 
+  @Test
+  public void delete_deletesUser_true() {
+    User testUser = new User("Colin", "Colinjb");
+    testUser.save();
+    testUser.delete();
+    assertEquals(User.all().size(), 0);
+  }
+
+  @Test
+  public void equals_returnsTrueIfNameAndUsernameAreSame_true() {
+    User testUser = new User("Colin", "Colinjb");
+    testUser.save();
+    User savedUser = User.all().get(0);
+    assertTrue(savedUser.equals(testUser));
+  }
+
 }
