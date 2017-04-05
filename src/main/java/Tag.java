@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 public class Tag {
   private int id;
   private String name;
-  private List<Post> postList;
+  private List<Post> posts;
 
   public Tag(String name) {
     this.name = name;
@@ -24,8 +24,8 @@ public class Tag {
     return id;
   }
 
-  public List<Post> getPostList(){
-    return postList;
+  public List<Post> getPosts(){
+    return posts;
   }
 
 }

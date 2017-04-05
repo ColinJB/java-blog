@@ -14,4 +14,32 @@ public class UserTest {
   @Rule
   public DatabaseRule database = new DatabaseRule();
 
+  @Test
+  public void save_returnsTrueForNameUsername_true() {
+    User testUser = new User("Colin", "Colinjb");
+    testUser.save();
+    String name = testUser.getName();
+    String username = testUser.getUsername();
+    assertEquals(User.all().get(0).getName(), "Colin");
+    assertEquals(User.all().get(0).getUsername(), "Colinjb");
+  }
+
+  @Test
+  public void find_returnsCorrectUser_true() {
+    User testUser = new User("Colin", "Colinjb");
+    testUser.save();
+    User testUser2 = new User("Alex", "Doomcat");
+    testUser2.save();
+    assertEquals(User.find(testUser.getId()).getName(), "Colin");
+    assertEquals(User.find(testUser2.getId()).getName(), "Alex");
+  }
+
+  @Test
+  public void update_returnsUpdatedUser_true() {
+    User testUser = new User("Colin", "Colinjb");
+    testUser.save();
+    testUser.update("name", "'Alex'");
+    assertEquals(User.all().get(0).getName(), "Alex");
+  }
+
 }

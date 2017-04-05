@@ -19,11 +19,11 @@ public class Post extends Submission{
     created = new Timestamp(new Date().getTime());
   }
 
-  public List<Tag> getTagList(){
+  public List<Tag> getTags(){
     return tags;
   }
 
-  public List<Comment> getCommentList(){
+  public List<Comment> getComments(){
     return comments;
   }
 
