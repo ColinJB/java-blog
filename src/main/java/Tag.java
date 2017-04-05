@@ -8,9 +8,24 @@ import java.util.TimerTask;
 import java.sql.Timestamp;
 
 public class Tag {
+  private int id;
+  private String name;
+  private List<Post> postList;
 
-  public Tag() {
+  public Tag(String name) {
+    this.name = name;
+  }
 
+  public String getName(){
+    return name;
+  }
+
+  public int getId(){
+    return id;
+  }
+
+  public List<Post> getPostList(){
+    return postList;
   }
 
 }
