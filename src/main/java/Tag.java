@@ -10,7 +10,6 @@ import java.sql.Timestamp;
 public class Tag {
   private int id;
   private String name;
-  private List<Post> posts;
 
   public Tag(String name) {
     this.name = name;
@@ -22,10 +21,6 @@ public class Tag {
 
   public int getId(){
     return id;
-  }
-
-  public List<Post> getPosts(){
-    return posts;
   }
 
   public void save(){
@@ -82,6 +77,27 @@ public class Tag {
       return this.getName().equals(newTag.getName());
     }
   }
+
+  public List<Post> getPosts(){
+    try(Connection con = DB.sql2o.open()){
+      String joinQuery = "SELECT post_id FROM tags_posts WHERE tag_id = :tag_id";
+      List<Integer> postIds = con.createQuery(joinQuery)
+        .addParameter("tag_id", this.getId())
+        .executeAndFetch(Integer.class);
+
+        List<Post> posts = new ArrayList<Post>();
+
+      for (Integer postId : postIds) {
+        String postQuery = "SELECT * FROM posts WHERE id = :id";
+        Post post = con.createQuery(postQuery)
+          .addParameter("id", postId)
+          .executeAndFetchFirst(Post.class);
+        posts.add(post);
+      }
+      return posts;
+    }
+  }
+
 
 
 }

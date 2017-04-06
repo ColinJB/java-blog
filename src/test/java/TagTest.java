@@ -56,4 +56,22 @@ public class TagTest {
     assertTrue(savedTag.equals(testTag));
   }
 
+  @Test
+  public void getPosts_() {
+    Post testPost = new Post("Colin",1);
+    testPost.save();
+    Post testPost2 = new Post("Colin2",1);
+    testPost2.save();
+    Tag tag = new Tag("shit");
+    Tag tag2 = new Tag("crap");
+    tag.save();
+    tag2.save();
+    testPost.addTag(tag);
+    testPost.addTag(tag2);
+    testPost2.addTag(tag);
+    System.out.println(tag.getPosts());
+    assertTrue(tag.getPosts().size() == 2);
+    assertTrue(tag2.getPosts().size() == 1);
+  }
+
 }

@@ -11,8 +11,6 @@ public class User {
   private int id;
   private String name;
   private String username;
-  private List<Post> posts;
-  private List<Comment> comments;
 
   public User(String name, String username) {
     this.name = name;
@@ -29,14 +27,6 @@ public class User {
 
   public String getUsername(){
     return username;
-  }
-
-  public List<Post> getPosts(){
-    return posts;
-  }
-
-  public List<Comment> getComments(){
-    return comments;
   }
 
   public void save(){
