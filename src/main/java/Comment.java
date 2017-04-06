@@ -22,9 +22,13 @@ public class Comment extends Submission{
     return post_id;
   }
 
-  public void save(){
+  public void saveComment(){
     try(Connection con = DB.sql2o.open()){
       String sql = "INSERT INTO comments (title, content, user_id, created, post_id) VALUES (:title, :content, :user_id, :created, :post_id);";
+      // Post post = Post.find(post_id);
+      // int count = Comment.getPostComments(post).size();
+      // post.update("count", count);
+
       this.id = (int) con.createQuery(sql, true)
         .addParameter("title", title)
         .addParameter("content", this.content)
@@ -34,6 +38,29 @@ public class Comment extends Submission{
         .executeUpdate()
         .getKey();
     }
+  }
+
+  public void updatePostCount(){
+    try(Connection con = DB.sql2o.open()){
+      String sql = "UPDATE posts SET count = :count WHERE id = :post_id;";
+
+      Post post = Post.find(post_id);
+      int count = Comment.getPostComments(post).size();
+
+      System.out.println(post_id);
+      System.out.println(count);
+      System.out.println(post);
+
+      con.createQuery(sql)
+      .addParameter("count", count)
+      .addParameter("post_id", post_id)
+      .executeUpdate();
+    }
+  }
+
+  public void save() {
+    this.saveComment();
+    this.updatePostCount();
   }
 
   public static List<Comment> all(){

@@ -103,5 +103,17 @@ public class PostTest {
     assertEquals(savedPosts, Post.getUserPosts(testUser));
   }
 
+  @Test
+  public void test_return_posts_in_order(){
+    User testUser = new User("Alex", "Doomcat");
+    testUser.save();
+    Post testPost = new Post("Colin", testUser.getId());
+    testPost.save();
+    Comment testComment = new Comment("Colin", testUser.getId(), testPost.getId());
+    testComment.save();
+    Post testPost2 = new Post("Colin2", testUser.getId());
+    testPost2.save();
+    assertTrue(testPost.equals(testPost2));
+  }
 
 }
