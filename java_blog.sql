@@ -79,7 +79,8 @@ CREATE TABLE posts (
     title character varying,
     content character varying,
     user_id integer,
-    created timestamp without time zone
+    created timestamp without time zone,
+    count integer
 );
 
 
@@ -261,7 +262,10 @@ SELECT pg_catalog.setval('comments_id_seq', 1, false);
 -- Data for Name: posts; Type: TABLE DATA; Schema: public; Owner: Guest
 --
 
-COPY posts (id, title, content, user_id, created) FROM stdin;
+COPY posts (id, title, content, user_id, created, count) FROM stdin;
+1	Test1	\N	\N	\N	1
+2	Test2	\N	\N	\N	2
+3	Test3	\N	\N	\N	3
 \.
 
 
@@ -269,7 +273,7 @@ COPY posts (id, title, content, user_id, created) FROM stdin;
 -- Name: posts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
 --
 
-SELECT pg_catalog.setval('posts_id_seq', 1, false);
+SELECT pg_catalog.setval('posts_id_seq', 3, true);
 
 
 --

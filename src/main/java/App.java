@@ -11,11 +11,6 @@ public class App {
 
     get("/", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
-
-      // ArrayList<Post> allPosts = Post.all();
-      // allPosts.someMethodThatSortsByCount(); //need to be soting by count property of the Post object.
-      //
-
       model.put("template", "templates/index.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
