@@ -44,16 +44,16 @@ public class Comment extends Submission{
     try(Connection con = DB.sql2o.open()){
       String sql = "UPDATE posts SET count = :count WHERE id = :post_id;";
 
-      Post post = Post.find(post_id);
+      Post post = Post.find(this.post_id);
       int count = Comment.getPostComments(post).size();
 
-      System.out.println(post_id);
+      System.out.println(this.post_id);
       System.out.println(count);
       System.out.println(post);
 
       con.createQuery(sql)
       .addParameter("count", count)
-      .addParameter("post_id", post_id)
+      .addParameter("post_id", this.post_id)
       .executeUpdate();
     }
   }

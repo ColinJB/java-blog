@@ -109,11 +109,24 @@ public class PostTest {
     testUser.save();
     Post testPost = new Post("Colin", testUser.getId());
     testPost.save();
-    Comment testComment = new Comment("Colin", testUser.getId(), testPost.getId());
-    testComment.save();
     Post testPost2 = new Post("Colin2", testUser.getId());
     testPost2.save();
-    assertTrue(testPost.equals(testPost2));
+    Post testPost3 = new Post("Colin3", testUser.getId());
+    testPost3.save();
+    Comment testComment = new Comment("Colin", testUser.getId(), testPost.getId());
+    testComment.save();
+    Comment testComment2 = new Comment("Colin2", testUser.getId(), testPost.getId());
+    testComment2.save();
+    Comment testComment3 = new Comment("Colin3", testUser.getId(), testPost2.getId());
+    testComment3.save();
+    Comment testComment4 = new Comment("Colin4", testUser.getId(), testPost3.getId());
+    testComment4.save();
+    Comment testComment5 = new Comment("Colin5", testUser.getId(), testPost3.getId());
+    testComment5.save();
+    Comment testComment6 = new Comment("Colin6", testUser.getId(), testPost3.getId());
+    testComment6.save();
+    List<Post> postsOrder = Post.displayInOrder();
+    assertEquals(postsOrder.get(0), Post.all().get(2));
   }
 
 }

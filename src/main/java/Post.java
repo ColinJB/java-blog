@@ -132,4 +132,12 @@ public class Post extends Submission{
     }
   }
 
+  public static List<Post> displayInOrder() {
+    try(Connection con = DB.sql2o.open()){
+      String sql = "SELECT * FROM posts ORDER BY count DESC;";
+      return con.createQuery(sql)
+        .executeAndFetch(Post.class);
+    }
+  }
+
 }

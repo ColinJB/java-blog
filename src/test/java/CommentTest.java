@@ -16,7 +16,9 @@ public class CommentTest {
 
     @Test
     public void save_returnsTrueForTitleCommentname_true() {
-      Comment testComment = new Comment("Colin", 1 ,1);
+      Post testPost = new Post("Alex", 1);
+      testPost.save();
+      Comment testComment = new Comment("Colin", 1 ,testPost.getId());
       testComment.save();
       String name = testComment.getTitle();
       assertEquals(Comment.all().get(0).getTitle(), "Colin");
@@ -24,9 +26,11 @@ public class CommentTest {
 
     @Test
     public void find_returnsCorrectComment_true() {
-      Comment testComment = new Comment("Colin", 1, 1);
+      Post testPost = new Post("Alex", 1);
+      testPost.save();
+      Comment testComment = new Comment("Colin", 1, testPost.getId());
       testComment.save();
-      Comment testComment2 = new Comment("Alex", 2, 1);
+      Comment testComment2 = new Comment("Alex", 2, testPost.getId());
       testComment2.save();
       assertEquals(Comment.find(testComment.getId()).getTitle(), "Colin");
       assertEquals(Comment.find(testComment2.getId()).getTitle(), "Alex");
@@ -34,7 +38,9 @@ public class CommentTest {
 
     @Test
     public void update_returnsUpdatedComment_true() {
-      Comment testComment = new Comment("Colin", 1, 1);
+      Post testPost = new Post("Alex", 1);
+      testPost.save();
+      Comment testComment = new Comment("Colin", 1, testPost.getId());
       testComment.save();
       testComment.update("title", "'Alex'");
       assertEquals(Comment.all().get(0).getTitle(), "Alex");
@@ -42,7 +48,9 @@ public class CommentTest {
 
     @Test
     public void delete_deletesComment_true() {
-      Comment testComment = new Comment("Colin",1, 1);
+      Post testPost = new Post("Alex", 1);
+      testPost.save();
+      Comment testComment = new Comment("Colin",1, testPost.getId());
       testComment.save();
       testComment.delete();
       assertEquals(Comment.all().size(), 0);
@@ -50,7 +58,9 @@ public class CommentTest {
 
     @Test
     public void equals_returnsTrueIfTitleAndCommentnameAreSame_true() {
-      Comment testComment = new Comment("Colin",1, 1);
+      Post testPost = new Post("Alex", 1);
+      testPost.save();
+      Comment testComment = new Comment("Colin",1, testPost.getId());
       testComment.save();
       Comment savedComment = Comment.all().get(0);
       assertTrue(savedComment.equals(testComment));
@@ -60,9 +70,11 @@ public class CommentTest {
     public void getUserComments_returnsAllCommentsOfUser_true() {
       User testUser = new User("Alex", "Doomcat");
       testUser.save();
-      Comment testComment = new Comment("Colin", testUser.getId(), 1);
+      Post testPost = new Post("Alex", 1);
+      testPost.save();
+      Comment testComment = new Comment("Colin", testUser.getId(), testPost.getId());
       testComment.save();
-      Comment testComment2 = new Comment("Colin2", testUser.getId(), 1);
+      Comment testComment2 = new Comment("Colin2", testUser.getId(), testPost.getId());
       testComment2.save();
       List<Comment> savedComments = Comment.all();
       assertEquals(savedComments, Comment.getUserComments(testUser));

@@ -69,7 +69,6 @@ public class TagTest {
     testPost.addTag(tag);
     testPost.addTag(tag2);
     testPost2.addTag(tag);
-    System.out.println(tag.getPosts());
     assertTrue(tag.getPosts().size() == 2);
     assertTrue(tag2.getPosts().size() == 1);
   }
